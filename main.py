@@ -2,6 +2,7 @@ from db_conn import get_connection, create_database #returns database connection
 from load_data import load_csv #to be used to create dataframe used when calling calculations etc
 from calculations import * #import all functions from calculations.py for us to use later
 from plots import * #import everything from plots.py to display graphs later
+import tkinter as tk
 
 #create a dataframe from the student grades csv file
 df = load_csv()
@@ -36,3 +37,4 @@ with get_connection() as conn:
     print(f"Average grade by country from SQL:\n{get_average_grade_per_country_sql(conn)}\n")
 
     print(f"Correlation between attendance and grade: {get_correlation_attendance_and_grade(df)}")
+
