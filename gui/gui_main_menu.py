@@ -1,6 +1,6 @@
 import tkinter as tk #used to create gui
 from gui_helpers import centre_window
-
+from gui_statistics import open_statistics_gui
 
 #set up a tkinter window
 #from research/reading, it's convention to use root as the name of the window/root for a tkinter gui, so I'll use that for my main menu
@@ -10,8 +10,6 @@ centre_window(root, 600, 150) #call function to centre window
 tk.Label(root, text="SID - Student Information Data", font=("Arial", 15, "bold")).grid(row=0, column=0, columnspan=3, pady=20) #columnspan and rowspan used to make content span multiple cells of a grid
 
 
-def open_statistics_gui():
-    pass
 
 def open_graphs_gui():
     pass

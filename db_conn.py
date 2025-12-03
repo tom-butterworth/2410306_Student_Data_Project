@@ -1,13 +1,20 @@
+import os
 import sqlite3
+from tkinter import messagebox
+
 from load_data import load_csv
 
 
 #returns database connection to sqlite db, to be used later by any functions querying/using the database
 def get_connection():
     try:
-        return sqlite3.connect(r"data/student_grades.db") #r used to treat as a raw string, avoids things like \n being treated as a new line
+        base_directory = os.path.dirname(os.path.dirname(__file__)) #go one level up from current file's file path, for example if in /gui sub folder
+        db_path = os.path.join(base_directory, 'students.db')
+        return sqlite3.connect(db_path)
+
+        # return sqlite3.connect(r"data/student_grades.db") #r used to treat as a raw string, avoids things like \n being treated as a new line
     except Exception as e:
-        print(f"Error: {e}")
+        messagebox.showerror("Error", f"Error: {e}")
 
 #create a database/table in a database, if one is present then replace it
 def create_database():

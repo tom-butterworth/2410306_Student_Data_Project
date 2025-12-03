@@ -37,4 +37,3 @@ with get_connection() as conn:
     print(f"Average grade by country from SQL:\n{get_average_grade_per_country_sql(conn)}\n")
 
     print(f"Correlation between attendance and grade: {get_correlation_attendance_and_grade(df)}")
-
