@@ -20,13 +20,11 @@ def open_statistics_gui():
 
 
     #function to change the value of lblDisplayResult, will be called when a button is clicked
-    #if result part protects against errors when no data is returned
+    #if result part protects against errors when no data is returned from relevant calculation function
     def show_result(text, result):
-        try:
-            lblResultTitle.pack(padx=10, anchor="w")
-            lblDisplayResult.config(text=f"{text}: {result:.2f}" if result else "No data found")
-        except Exception as e:
-            messagebox.showerror("Error", f"Error: {e}")
+        text = f"{text}: {result}" if result else "No data found"
+        lblDisplayResult.config(text=text)
+        lblDisplayResult.pack(pady=10)
 
 
     """
@@ -36,7 +34,7 @@ def open_statistics_gui():
     You can think of it like a recipe vs making the finished food. Tkinter wants the recipe for later, so wrapping it in a lambda function gives tkinter a reference to this recipe, rather than ...
     ... telling it to make the food straight away.
     """
-    tk.Button(win_statistics, text="Average Grade", command=lambda: show_result("Average Grade", calculate_average_grade_sql(conn))).pack( padx=10, pady=5, anchor="w")
+    tk.Button(win_statistics, text="Average Grade", command=lambda: show_result("Average Grade", calculate_average_grade_sql(conn))).pack(padx=10, pady=5, anchor="w")
     tk.Button(win_statistics, text="Average Attendance", command=lambda: show_result("Average Attendance", calculate_average_attendance_sql(conn))).pack(padx=10, pady=5, anchor="w")
 
     #function to be called when the window is closed, handles closing db connection and destroying the window
