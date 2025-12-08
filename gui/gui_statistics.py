@@ -34,21 +34,13 @@ def open_statistics_gui():
     Can think of it like a recipe vs making the finished food. Tkinter wants the recipe for later, so wrapping it in a lambda function gives tkinter a reference to this recipe, rather than ...
     ... telling it to make the food straight away.
     """
-    ttk.Button(win_statistics, text="Average Grade", command=lambda: show_result("Average Grade", calculate_average_grade_sql(conn))).pack(padx=10, pady=5, anchor="w")
-    ttk.Button(win_statistics, text="Average Attendance", command=lambda: show_result("Average Attendance", calculate_average_attendance_sql(conn))).pack(padx=10, pady=5, anchor="w")
-    ttk.Button(win_statistics, text="Number of Passes", command=lambda: show_result("Number of Passes", get_number_of_passes_sql(conn))).pack(padx=10, pady=5, anchor="w")
-    ttk.Button(win_statistics, text="Number of Fails", command=lambda: show_result("Number of Fails", get_number_of_fails_sql(conn))).pack(padx=10, pady=5, anchor="w")
-    ttk.Button(win_statistics, text="Number of As", command=lambda: show_result("Number of As", get_number_of_As_sql(conn))).pack(padx=10, pady=5, anchor="w")
-    ttk.Button(win_statistics, text="Number of Bs", command=lambda: show_result("Number of Bs", get_number_of_Bs_sql(conn))).pack(padx=10, pady=5, anchor="w")
-    ttk.Button(win_statistics, text="Number of Cs", command=lambda: show_result("Number of Cs", get_number_of_Cs_sql(conn))).pack(padx=10, pady=5, anchor="w")
-
-    #function to be called when the window is closed, handles closing db connection and destroying the window
-    def on_close():
-        try:
-            conn.close() #close db connection before closing/destroying window
-            win_statistics.destroy()
-        except Exception as e:
-            messagebox.showerror("Error", f"Error: {e}")
+    ttk.Button(win_statistics, text="Average Grade", command=lambda: show_result("Average Grade", calculate_average_grade_sql(conn))).pack(padx=10, pady=5)
+    ttk.Button(win_statistics, text="Average Attendance", command=lambda: show_result("Average Attendance", calculate_average_attendance_sql(conn))).pack(padx=10, pady=5)
+    ttk.Button(win_statistics, text="Number of Passes", command=lambda: show_result("Number of Passes", get_number_of_passes_sql(conn))).pack(padx=10, pady=5)
+    ttk.Button(win_statistics, text="Number of Fails", command=lambda: show_result("Number of Fails", get_number_of_fails_sql(conn))).pack(padx=10, pady=5)
+    ttk.Button(win_statistics, text="Number of As", command=lambda: show_result("Number of As", get_number_of_As_sql(conn))).pack(padx=10, pady=5)
+    ttk.Button(win_statistics, text="Number of Bs", command=lambda: show_result("Number of Bs", get_number_of_Bs_sql(conn))).pack(padx=10, pady=5)
+    ttk.Button(win_statistics, text="Number of Cs", command=lambda: show_result("Number of Cs", get_number_of_Cs_sql(conn))).pack(padx=10, pady=5)
 
     win_statistics.protocol("WM_DELETE_WINDOW", on_close) #WM_DELETE_WINDOW is the event triggered by clicking the close button. When this is triggered, call on_close() allowing cleanup before destroying the window
 
