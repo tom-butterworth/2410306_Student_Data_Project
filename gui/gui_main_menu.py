@@ -2,6 +2,7 @@ import tkinter as tk #used to create gui
 from gui.gui_helpers import centre_window
 from gui.gui_statistics import open_statistics_gui
 from tkinter import ttk #use for widgets if possible, modern widgets have more formatting and features than older tk widgets
+from sv_ttk import get_theme, set_theme  # will be used to set a gui theme (windows 11 like theme with light and dark variants)
 
 
 def open_main_menu():
@@ -10,7 +11,7 @@ def open_main_menu():
     root = tk.Tk()
     root.title("Student Data")
     centre_window(root, 600, 150) #call function to centre window
-    tk.Label(root, text="SID - Student Information Data", font=("Arial", 15, "bold")).grid(row=0, column=0, columnspan=3, pady=20) #columnspan and rowspan used to make content span multiple cells of a grid
+    ttk.Label(root, text="SID - Student Information Data", font=("Arial", 15, "bold")).grid(row=0, column=0, columnspan=3, pady=20) #columnspan and rowspan used to make content span multiple cells of a grid
 
 
 
@@ -30,5 +31,5 @@ def open_main_menu():
     root.grid_columnconfigure(2, weight=1)
 
 
-
+    set_theme("light") #sets sun valley light theme
     root.mainloop()
