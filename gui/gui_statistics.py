@@ -1,6 +1,6 @@
 import tkinter as tk
+from gui.gui_helpers import safe_close_window
 from tkinter import ttk
-from tkinter import messagebox
 from db_conn import get_connection
 from calculations import calculate_average_grade_sql, calculate_average_attendance_sql, get_number_of_passes_sql, get_number_of_fails_sql, get_number_of_As_sql, get_number_of_Bs_sql, get_number_of_Cs_sql
 from gui.gui_helpers import centre_window
