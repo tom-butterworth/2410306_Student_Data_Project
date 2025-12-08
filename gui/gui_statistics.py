@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from db_conn import get_connection
 from calculations import calculate_average_grade_sql, calculate_average_attendance_sql
-from gui_helpers import centre_window
+from gui.gui_helpers import centre_window
 
 #open and display the window. Everything related to building and using this window needs to be in the function.
 #this presents things like database connections happening at import time and also prevents scope errors
@@ -15,7 +15,6 @@ def open_statistics_gui():
     conn = get_connection()
 
     #create labels to display results when a button is clicked to do so, not applying .pack method yet so it doesn't show and create empty space before any results are requested/displayed
-    lblResultTitle = tk.Label(win_statistics, text="Results:")
     lblDisplayResult = tk.Label(win_statistics, text="")
 
 
