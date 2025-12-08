@@ -10,13 +10,13 @@ from gui.gui_helpers import centre_window
 def open_statistics_gui():
     win_statistics = tk.Toplevel() #creates new window on top of the current/main one
     win_statistics.title("Statistics")
-    centre_window(win_statistics, 400, 300)
+    centre_window(win_statistics, 400, 350)
 
     #connect to database
     conn = get_connection()
 
     #create labels to display results when a button is clicked to do so, not applying .pack method yet so it doesn't show and create empty space before any results are requested/displayed
-    lblDisplayResult = tk.Label(win_statistics, text="")
+    lblDisplayResult = tk.Label(win_statistics,text="", font=("Segoe UI", 12, "bold")) #using tk.Label rather than ttk.Label as ttk.Label applies a grey background and is awkward with themes applied
 
 
     #function to change the value of lblDisplayResult, will be called when a button is clicked
@@ -24,14 +24,14 @@ def open_statistics_gui():
     def show_result(text, result):
         text = f"{text}: {result}" if result else "No data found"
         lblDisplayResult.config(text=text)
-        lblDisplayResult.pack(pady=10)
+        lblDisplayResult.pack(pady=10, padx=10, anchor="center")
 
 
     """
     Creating buttons with lambda functions in the command arg, without these it would run show_result as soon as the button was created, rather than when it was clicked.
     This is because command= wants a function reference (i.e. command=show_result) which says here's the function to use when clicked, not a function call (i.e. command=show_result(x, y)) ...
     ... which says run the function show_result with arguments x and y. Lambda essentially creates a callable function that we can use. This means that tkinter has a function reference, rather than a function call.
-    You can think of it like a recipe vs making the finished food. Tkinter wants the recipe for later, so wrapping it in a lambda function gives tkinter a reference to this recipe, rather than ...
+    Can think of it like a recipe vs making the finished food. Tkinter wants the recipe for later, so wrapping it in a lambda function gives tkinter a reference to this recipe, rather than ...
     ... telling it to make the food straight away.
     """
     ttk.Button(win_statistics, text="Average Grade", command=lambda: show_result("Average Grade", calculate_average_grade_sql(conn))).pack(padx=10, pady=5, anchor="w")
