@@ -42,11 +42,4 @@ def open_statistics_gui():
     ttk.Button(win_statistics, text="Number of Bs", command=lambda: show_result("Number of Bs", get_number_of_Bs_sql(conn))).pack(padx=10, pady=5)
     ttk.Button(win_statistics, text="Number of Cs", command=lambda: show_result("Number of Cs", get_number_of_Cs_sql(conn))).pack(padx=10, pady=5)
 
-    win_statistics.protocol("WM_DELETE_WINDOW", on_close) #WM_DELETE_WINDOW is the event triggered by clicking the close button. When this is triggered, call on_close() allowing cleanup before destroying the window
-
-#for testing
-if __name__ == "__main__":
-    root = tk.Tk() #create a root window
-    root.withdraw() #hide it if you only want the statistics window
-    open_statistics_gui()
-    root.mainloop()
+    win_statistics.protocol("WM_DELETE_WINDOW", lambda: safe_close_window(win_statistics, conn=conn))
