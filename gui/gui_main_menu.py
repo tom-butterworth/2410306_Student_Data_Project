@@ -31,4 +31,5 @@ def open_main_menu(root):
 
 
     set_theme("light") #sets sun valley light theme
-    root.mainloop()
+
+    win_main_menu.protocol("WM_DELETE_WINDOW", lambda: safe_close_window(win_main_menu, root=root))
