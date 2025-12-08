@@ -21,13 +21,13 @@ def open_main_menu(root):
         pass
 
 
-    ttk.Button(root, text="Display Statistics", command=open_statistics_gui).grid(row=1, column=0, padx=10, pady=15)
-    ttk.Button(root, text="Display Graphs", command=open_graphs_gui).grid(row=1, column=1, padx=10, pady=15)
-    ttk.Button(root, text="Search Students", command=open_student_search_gui).grid(row=1, column=2, padx=10, pady=15)
+    ttk.Button(win_main_menu, text="Display Statistics", command=open_statistics_gui).grid(row=1, column=0, padx=10, pady=15)
+    ttk.Button(win_main_menu, text="Display Graphs", command=open_graphs_gui).grid(row=1, column=1, padx=10, pady=15)
+    ttk.Button(win_main_menu, text="Search Students", command=open_student_search_gui).grid(row=1, column=2, padx=10, pady=15)
 
-    root.grid_columnconfigure(0, weight=1)
-    root.grid_columnconfigure(1, weight=1)
-    root.grid_columnconfigure(2, weight=1)
+    win_main_menu.grid_columnconfigure(0, weight=1)
+    win_main_menu.grid_columnconfigure(1, weight=1)
+    win_main_menu.grid_columnconfigure(2, weight=1)
 
 
     set_theme("light") #sets sun valley light theme
