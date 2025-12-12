@@ -1,12 +1,11 @@
 import tkinter as tk
-from gui.gui_helpers import safe_close_window
+from gui.gui_helpers import safe_close_window, centre_window
 from tkinter import ttk
 from db_conn import get_connection
 from calculations import calculate_average_grade_sql, calculate_average_attendance_sql, get_number_of_passes_sql, get_number_of_fails_sql, get_number_of_As_sql, get_number_of_Bs_sql, get_number_of_Cs_sql
-from gui.gui_helpers import centre_window
 
 #open and display the window. Everything related to building and using this window needs to be in the function.
-#this presents things like database connections happening at import time and also prevents scope errors
+#this prevents things like database connections happening at import time and also prevents scope errors
 def open_statistics_gui():
     win_statistics = tk.Toplevel() #creates new window on top of the current/main one
     win_statistics.title("Statistics")

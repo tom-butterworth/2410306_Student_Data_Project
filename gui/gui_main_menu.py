@@ -1,6 +1,7 @@
 import tkinter as tk #used to create gui
 from gui.gui_helpers import centre_window, safe_close_window
 from gui.gui_statistics import open_statistics_gui
+from gui.gui_graphs import open_graphs_gui
 from tkinter import ttk #use for widgets if possible, modern widgets have more formatting and features than older tk widgets
 from sv_ttk import get_theme, set_theme  # will be used to set a gui theme (windows 11 like theme with light and dark variants)
 
@@ -11,11 +12,6 @@ def open_main_menu(root):
     centre_window(win_main_menu, 600, 150) #call function to centre the window
     #below: columnspan and rowspan used to make content span multiple cells of a grid. tk.Label rather than ttk.Label as ttk.Label applies a grey background and is awkward with themes applied
     tk.Label(win_main_menu, text="SID - Student Information Data", font=("Arial", 15, "bold")).grid(row=0, column=0, columnspan=3, pady=20)
-
-
-
-    def open_graphs_gui():
-        pass
 
     def open_student_search_gui():
         pass
