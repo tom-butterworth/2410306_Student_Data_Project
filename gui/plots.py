@@ -8,6 +8,12 @@ def clearplots():
 def plot_grade_vs_attendance(df):
     clearplots()
     plt.scatter(df["attendance"], df["grade"])
+
+    #calculate line of best fit
+    coefficients = np.polyfit(df["attendance"], df["grade"], 1) #returns array of [slope, intercept] of a linear (hence degree 1) line of best fit
+    polynomial = np.poly1d(coefficients)
+    plt.plot(df["attendance"], polynomial(df["attendance"]))
+
     plt.show()
 
 #Bar chart of average grade per country
