@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns #package I'll use for graph styling, has its own graphing functionality too but I won't use this
+sns.set_style("whitegrid") #set style for plots
 
 def clearplots():
     plt.clf() #clears all plots from the current figure. This means new plots appear in the same window, rather than opening a new window
