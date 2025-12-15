@@ -16,7 +16,7 @@ def open_student_search_gui():
     lblStudentSearchTitle.pack(pady=10)
 
     #Search box
-    search_box = tk.Entry(win_student_search, width=50) #input/search box for user to type in
+    search_box = ttk.Entry(win_student_search, width=50) #input/search box for user to type in
     search_box.pack(pady=10)
     search_box.focus()
     search_box.bind("<Return>", lambda event: search_student())
@@ -102,7 +102,7 @@ def open_student_search_gui():
     search_button.pack()
 
     #Frame to contain full student details when double clicked
-    full_details_frame = tk.Frame(win_student_search)
+    full_details_frame = ttk.Frame(win_student_search)
     full_details_frame.pack(fill="x", expand=True, padx=10)
 
     #Ensure window closes safely
