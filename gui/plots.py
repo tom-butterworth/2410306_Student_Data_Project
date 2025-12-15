@@ -28,3 +28,28 @@ def plot_average_grade_by_country(df):
     plt.xticks(rotation=90) #rotate x axis labels vertically, so country names are more legible
     plt.title("Average Grade by Country")
     plt.show()
+
+#Boxplot of grade distribution by country
+def plot_boxplot_grades_by_country(df):
+    clearplots()
+    """
+    df.loc[df["country"] == country, "grade"].values selects the grade where country is the current country. Every country then...
+    ... has an array of grades
+    for country in df["country"].unique() loops through every distinct country name in the data.
+    grades_by_country is therefore a list of arrays, where each array contains all the grades of a certain country.
+    """
+    grades_by_country = [df.loc[df["country"] == country, "grade"].values for country in df["country"].unique()]
+    plt.boxplot(grades_by_country, labels=df["country"].unique(), vert=True)
+    plt.xticks(rotation=90)
+    plt.ylabel("Grades")
+    plt.title("Grade Distribution by Country")
+    plt.show()
+
+#Histogram of grade distribution
+def plot_histogram_grade_distribution(df):
+    clearplots()
+    plt.hist(df["grade"], bins=50, edgecolor="black") #bins changes how many boxes/intervals the graph is split into
+    plt.xlabel("Grades")
+    plt.ylabel("Count")
+    plt.title("Grade Distribution")
+    plt.show()
