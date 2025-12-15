@@ -4,7 +4,7 @@ from gui.gui_statistics import open_statistics_gui
 from gui.gui_graphs import open_graphs_gui
 from gui.gui_student_search import open_student_search_gui
 from tkinter import ttk #use for widgets if possible, modern widgets have more formatting and features than older tk widgets
-from sv_ttk import get_theme, set_theme  # will be used to set a gui theme (windows 11 like theme with light and dark variants)
+from sv_ttk import set_theme  # will be used to set a gui theme (windows 11 like theme with light and dark variants)
 
 
 def open_main_menu(root):
@@ -22,7 +22,5 @@ def open_main_menu(root):
     win_main_menu.grid_columnconfigure(1, weight=1)
     win_main_menu.grid_columnconfigure(2, weight=1)
 
-
-    set_theme("light") #sets sun valley light theme
 
     win_main_menu.protocol("WM_DELETE_WINDOW", lambda: safe_close_window(win_main_menu, root=root))
