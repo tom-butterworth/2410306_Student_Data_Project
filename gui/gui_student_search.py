@@ -7,7 +7,7 @@ from gui.gui_helpers import centre_window, safe_close_window
 def open_student_search_gui():
     win_student_search = tk.Toplevel()
     win_student_search.title("Student Search")
-    centre_window(win_student_search, 500, 500)
+    centre_window(win_student_search, 500, 750)
 
     conn = get_connection()  # connect to db so we can search it
 
@@ -70,16 +70,36 @@ def open_student_search_gui():
             full_search_results.append(row) #store the full row for if user double clicks on a record
             searchResultTree.insert("", tk.END, values=(row[0], row[1], row[2]))
 
-    def on_result_double_click(event):
-        selection = searchResultBox.curselection()
-        if selection:
-            student = searchResultBox.get(selection[0])
-            messagebox.showinfo("Student Selected", f"You chose: {student}")
 
-    searchResultBox.bind("<Double-Button-1>", on_result_double_click)
+    #If the user double clicks a record, they can see the student's full details
+    def on_result_double_click(event):
+        selected_record = searchResultTree.selection()
+        if selected_record:
+            index = searchResultTree.index(selected_record) #gets the index of the record the user clicked on
+            full_row = full_search_results[index] #gets the data for the selected record
+
+            #clear previous details
+            for widget in full_details_frame.winfo_children():
+                widget.destroy()
+
+
+            details_labels =["student_id", "first_name", "last_name", "age", "email", "country", "attendance", "assignment_completed", "grade"]
+            full_details_frame.grid_columnconfigure(1, weight=1)
+            for i, label in enumerate(details_labels):
+                tk.Label(full_details_frame, text=f"{label}:", font=("Segoe UI", 10, "bold"), anchor="w").grid(row=i, column=0, sticky="w", padx=10, pady=2)
+                tk.Label(full_details_frame, text=full_row[i], anchor="w").grid(row=i, column=1, sticky="ew", padx=10, pady=2)
+
+
+    #When a record in the treeview is double clicked, call on_result_double_click
+    searchResultTree.bind("<Double-Button-1>", on_result_double_click)
 
     #Search button
     search_button = ttk.Button(win_student_search, text="Search", command=search_student)
     search_button.pack()
 
+    #Frame to contain full student details when double clicked
+    full_details_frame = tk.Frame(win_student_search)
+    full_details_frame.pack(fill="x", expand=True, padx=10)
+
+    #Ensure window closes safely
     win_student_search.protocol("WM_DELETE_WINDOW", lambda: safe_close_window(win_student_search, conn=conn))
