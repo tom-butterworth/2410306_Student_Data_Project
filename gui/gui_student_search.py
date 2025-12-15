@@ -7,7 +7,7 @@ from gui.gui_helpers import centre_window, safe_close_window
 def open_student_search_gui():
     win_student_search = tk.Toplevel()
     win_student_search.title("Student Search")
-    centre_window(win_student_search, 500, 750)
+    centre_window(win_student_search, 500, 450)
 
     conn = get_connection()  # connect to db so we can search it
 
@@ -73,6 +73,10 @@ def open_student_search_gui():
 
     #If the user double clicks a record, they can see the student's full details
     def on_result_double_click(event):
+        #for the first student the user double clicks, the window expands allowing room for the full results display
+        if win_student_search.winfo_height() == 450:
+            centre_window(win_student_search, 500, 750)
+
         selected_record = searchResultTree.selection()
         if selected_record:
             index = searchResultTree.index(selected_record) #gets the index of the record the user clicked on
