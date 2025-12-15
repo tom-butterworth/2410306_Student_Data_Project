@@ -21,9 +21,18 @@ def open_student_search_gui():
     search_box.focus()
     search_box.bind("<Return>", lambda event: search_student())
 
-    #Listbox to display search results
-    searchResultBox = tk.Listbox(win_student_search, width=50, height=10)
-    searchResultBox.pack(pady=10)
+    #Treeview to display search results
+    columns = ("student_id", "first_name", "last_name")
+    searchResultTree = ttk.Treeview(win_student_search, columns=columns, show="headings", height=10)
+    for col in columns:
+        searchResultTree.heading(col, text=col.replace("_", " ").title())
+        searchResultTree.column(col, width=150)
+    searchResultTree.pack(pady=10)
+
+
+
+
+    full_search_results = []
 
 
     #Called when search button is clicked
@@ -33,22 +42,33 @@ def open_student_search_gui():
             return messagebox.showerror("Error", "Please enter a search value") #give an error if no text entered
 
         #below: gets all rows where first or last name contains user's search value. COLLATE NOCASE in sql means the query ignores case
-        search_results = conn.execute(
-            """
-            SELECT student_id, first_name, last_name
-            FROM tbl_student_grades
-            WHERE first_name LIKE ? COLLATE NOCASE
-               OR last_name LIKE ? COLLATE NOCASE
-            ORDER BY last_name, first_name
-            """,
-            (f"%{search_value}%", f"%{search_value}%")
-        ).fetchall()
+        try:
+            search_results = conn.execute(
+                """
+                SELECT *
+                FROM tbl_student_grades
+                WHERE first_name LIKE ? COLLATE NOCASE
+                   OR last_name LIKE ? COLLATE NOCASE
+                ORDER BY last_name, first_name
+                """,
+                (f"%{search_value}%", f"%{search_value}%")
+            ).fetchall()
+        except Exception as e:
+            messagebox.showerror("Error", f"Database error: {e}")
 
-        searchResultBox.delete(0, tk.END) #clear the listbox ready to insert results
+        #clear results box and full results array ready to display
+        searchResultTree.delete(*searchResultTree.get_children())
+        full_search_results.clear()
+
+        #if no results found, display as such in treeview
         if not search_results:
-            searchResultBox.insert(tk.END, "No results found") #display message in listbox if no results found
-        for student_id, first_name, last_name in search_results:
-            searchResultBox.insert(tk.END, f"{student_id} - {first_name} {last_name}")
+            searchResultTree.insert("", tk.END, values=("No results", "", ""))
+            return
+
+        #for every row returned in search_results from sql query, add row to full_search_results and enter it into the treeview
+        for row in search_results:
+            full_search_results.append(row) #store the full row for if user double clicks on a record
+            searchResultTree.insert("", tk.END, values=(row[0], row[1], row[2]))
 
     def on_result_double_click(event):
         selection = searchResultBox.curselection()
@@ -60,6 +80,6 @@ def open_student_search_gui():
 
     #Search button
     search_button = ttk.Button(win_student_search, text="Search", command=search_student)
-    search_button.pack(pady=10)
+    search_button.pack()
 
     win_student_search.protocol("WM_DELETE_WINDOW", lambda: safe_close_window(win_student_search, conn=conn))
