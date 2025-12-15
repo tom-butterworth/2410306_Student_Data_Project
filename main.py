@@ -10,7 +10,6 @@ def main():
     setup_styles(root, theme="light") #sets sun valley light theme, and applies any of my custom styles to widgets
 
 
-    df = load_csv() #create a dataframe from the student grades csv file
     create_database() #create a database containing student grades table
 
     open_main_menu(root) #open main menu gui
