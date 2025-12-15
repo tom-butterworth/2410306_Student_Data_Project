@@ -6,7 +6,7 @@ import tkinter as tk
 def main():
     root = tk.Tk() #from research, it's convention to use root as the name of the window/root for a tkinter gui
     root.withdraw() #to hide the root, as it's only used to open the main menu straight away anyway
-    setup_styles(theme="dark") #sets sun valley light theme, and applies any of my custom styles to widgets
+    setup_styles(theme="light") #sets sun valley light theme, and applies any of my custom styles to widgets
 
 
     create_database() #create a database containing student grades table
